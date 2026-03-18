@@ -1,0 +1,224 @@
+.accessories-section {
+    background: #0a3d62;
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.accessories-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    letter-spacing: 2px;
+    color: #f1c40f;
+
+}
+.accessories-section p.upgrade{
+    font-size: 1.2rem;
+    color: #767f85;
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+}
+
+.accessories-row {
+    display: flex;
+    overflow-x: auto;
+    gap: 2rem;
+    padding: 20px 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #ffffff33;
+}
+
+.accessories-row::-webkit-scrollbar-thumb {
+    background: #ffffff33;
+    border-radius: 10px;
+}
+
+.accessory-card {
+    background: #032a46;
+    color: #f1c40f;
+    min-width: 200px;
+    flex: 0 0 auto;
+    border-radius: 12px;
+    text-align: left;
+    padding: 15px;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all ease;
+    transform: translateY(40px);
+    margin-bottom: 3rem;
+    opacity: 0;
+}
+
+.accessory-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.accessory-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.accessory-card h4 {
+    margin: 10px 0 5px;
+    font-size: 1.2rem;
+    color: #f1c40f;
+    font-weight: 100;
+    padding: 0.5rem;
+}
+
+.old-price {
+    font-size: 1rem;
+    color: #767f85;
+    text-decoration: line-through;
+    padding: 0.4rem;
+}
+
+.new-price {
+    color: #767f85;
+    font-weight: bold;
+    padding: 0.4rem;
+    
+}
+
+.adds-to-cart {
+    bottom: 15px;
+    right: 15px;
+    background: #091f2e;
+    color: #f1c40f;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s;
+    position: absolute;
+}
+.adds-to-cart:hover {
+    background: #f1c40f;
+    color: #032a46;
+}
+
+.view-all-accessories {
+    margin-top: 2rem;
+    background: #032a46;
+    color: #f1c40f;
+    border: none;
+    cursor: pointer;
+    justify-content: center;
+    padding: 0.8rem 2rem;
+    border-radius: 1rem;
+}
+
+.accessories-grid {
+    display: none;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+.accessories-grid.active {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+@media (max-width: 1024px) {
+
+    .accessories-section h2 {
+        font-size: 2rem;
+    }
+
+    .accessory-card {
+        min-width: 200px;
+    }
+
+    /* grid */
+    .accessories-grid .accessory-card {
+        flex: 0 0 calc(33.33% - 1rem);
+    }
+}
+
+/* ===== TABLETS ===== */
+@media (max-width: 768px) {
+
+    .accessories-section {
+        padding: 30px 15px;
+    }
+    .accessories-grid.active ~ .accessories-row {
+        display: none;
+    }
+
+    .accessories-section h2 {
+        font-size: 1.8rem;
+    }
+
+    .accessories-section p.upgrade {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    /* scroll cards */
+    .accessory-card {
+        min-width: 70%;
+    }
+     .accessories-grid.active ~ .accessories-row {
+        display: none;
+    }
+
+    /* grid */
+    .accessories-grid .accessory-card {
+        flex: 0 0 calc(50% - 1rem);
+    }
+     .accessories-grid.active {
+        flex-direction: column; 
+        align-items: center;
+    }
+
+    .accessories-grid.active .accessory-card {
+        width: 90%;
+        max-width: 400px;
+    }
+}
+
+/* ===== SMALL PHONES ===== */
+@media (max-width: 480px) {
+
+    .accessories-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .accessories-section p.upgrade {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    /* full width feel */
+    .accessory-card {
+        min-width: 85%;
+    }
+    .accessories-grid.active ~ .accessories-row {
+        display: none;
+    }
+
+    /* grid */
+    .accessories-grid .accessory-card {
+        width: 100%;
+    }
+
+    /* button full width */
+    .view-all-accessories {
+        width: 50%;
+    }
+     .accessories-grid.active {
+        flex-direction: column;
+        align-items: center;
+    }
+}

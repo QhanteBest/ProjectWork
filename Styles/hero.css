@@ -1,0 +1,160 @@
+.hero {
+    padding: 5rem 8%;
+    background: #e1e3e3;
+}
+
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.hero-text {
+    flex: 1;
+}
+.hero-text h1 {
+    font-size: 2.5rem;
+    color: #0a3d62;
+    margin-bottom: 2rem;
+     animation-delay: 0.5s;
+}
+
+.hero-text p{
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    animation-delay: 1s;
+}
+
+.hero-buttons.anim{
+    display: flex;
+    gap: 1rem;
+    animation-delay: 1.5s;
+
+}
+
+.btn-primary {
+    padding: 12px 24px;
+    background: #0a3d62;
+    color: #f1c40f;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+}
+.btn-primary:hover {
+    background: #d1dddd;
+    color: #0a3d62;
+}
+
+.btn-secondary {
+    padding: 12px 24px;
+    background: #e1e3e3;
+    border: 2px solid  #0a3d62;
+    color: #0a3d62;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+}
+
+.btn-secondary:hover {
+    background: #0a3d62;
+    color: #e1e3e3;
+}
+
+.hero-image img {
+    width: 100%;
+    max-width: 1200px;
+    height: 500px;
+    border-radius: 0rem 3rem 0rem 3rem;
+}
+
+.hero-image.anim {
+    animation-delay: 2.5s;
+}
+
+.hero-image {
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: -2.5rem;
+    min-width: 20rem;
+}
+
+.anim {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: moveup 0.5s linear forwards;
+}
+@keyframes moveup {
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+@media (max-width: 992px) {
+    .hero {
+        padding: 4rem 6%;
+    }
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-image {
+        order: 1;
+        margin-top: 0;
+        height: auto;
+    }
+    .hero-text {
+        order: 2;
+    }
+    .hero-text h1 {
+        font-size: 1.5rem;
+    }
+    .hero-text p{
+        font-size: 1rem;
+    }
+    .hero-buttons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px){
+    .hero {
+        padding: 3rem 5%;
+    }
+    .hero-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .hero-image{
+        order: 1;
+    }
+    .hero-text {
+        order: 2;
+    }
+    .hero-text h1 {
+        font-size: 1.7rem;
+    }
+    .hero-text p{
+        font-size: 1rem;
+    }
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .btn-primary,
+    .btn-secondary {
+        width: 50%;
+        text-align: center;
+    }
+    .hero-image img {
+        max-width: 90%;
+        height: auto;
+    }
+}
