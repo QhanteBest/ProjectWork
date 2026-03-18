@@ -1,6 +1,15 @@
 .hero {
     padding: 5rem 8%;
-    background: #e1e3e3;
+    background: #f5f7fa;
+    height: 90vh;
+    background: linear-gradient(rgba(255,255,255,0.65), rgba(255,255,255,0.65)),
+    url('https://images.unsplash.com/photo-1501696461415-6bd6660c6742');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .hero-container {
@@ -22,7 +31,7 @@
 
 .hero-text p{
     font-size: 1.1rem;
-    color: #555;
+    color: #f1c40f;
     line-height: 1.6;
     margin-bottom: 1rem;
     animation-delay: 1s;
@@ -47,6 +56,18 @@
     background: #d1dddd;
     color: #0a3d62;
 }
+.hero-image img {
+    max-width: 100%;
+    border-radius: 1rem;
+}
+.hero-image {
+    flex: 1;
+    min-width: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: -2.5rem;
+}
 
 .btn-secondary {
     padding: 12px 24px;
@@ -68,11 +89,9 @@
     max-width: 1200px;
     height: 500px;
     border-radius: 0rem 3rem 0rem 3rem;
+    opacity: 0.35;
 }
 
-.hero-image.anim {
-    animation-delay: 2.5s;
-}
 
 .hero-image {
     flex: 1;
@@ -83,6 +102,10 @@
     align-items: flex-start;
     margin-top: -2.5rem;
     min-width: 20rem;
+}
+
+.hero-image.anim {
+    animation-delay: 2.5s;
 }
 
 .anim {
@@ -105,22 +128,25 @@
         flex-direction: column;
         text-align: center;
     }
-    .hero-image {
-        order: 1;
-        margin-top: 0;
-        height: auto;
-    }
+    .hero-image.anim {
+    animation-delay: 0.5s;
+}
     .hero-text {
         order: 2;
     }
     .hero-text h1 {
         font-size: 1.5rem;
+        animation-delay: 1s;
     }
     .hero-text p{
         font-size: 1rem;
+        animation-delay: 1.5s;
     }
     .hero-buttons {
         justify-content: center;
+    }
+    .hero-buttons.anim {
+        animation-delay: 2s;
     }
 }
 
@@ -132,6 +158,7 @@
         flex-direction: column;
         gap: 2rem;
     }
+
     .hero-image{
         order: 1;
     }
@@ -152,9 +179,5 @@
     .btn-secondary {
         width: 50%;
         text-align: center;
-    }
-    .hero-image img {
-        max-width: 90%;
-        height: auto;
     }
 }

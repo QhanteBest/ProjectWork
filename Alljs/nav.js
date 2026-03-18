@@ -18,6 +18,7 @@ closeMenu.addEventListener("click", function(){
     navLinks.classList.remove("show");
     closeMenu.style.display="none";
     logo.classList.remove("hide");
+    hamburger.style.display = "block";
 });
 },100);
 

@@ -8,18 +8,32 @@
     height: 100%;
     background-color: rgba(0,0,0,0.5);
     align-items: center;
+    backdrop-filter: blur(3px);
     justify-content: center;
+    padding: 20px;
 }
 
 .cart-content {
     background: #ffffff;
-    width: 90%;
-    max-width: 40rem;
-    padding: 2rem;
+    width: 95%;
+    max-width: 500px;
+    max-height: 90vh;
+    padding: 2.5rem 1.5rem 1.5rem;
     border-radius: 1rem;
     box-shadow: 0 0.5rem 1rem rgba(0,0,0.2);
     position: relative;
     animation: fadeIn 0.3s ease;
+    flex-direction: column;
+}
+@keyframes modalSlideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .close-cart {
@@ -30,15 +44,25 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: #333;
+    color: #032137;
 }
 
 #cart-items {
-    margin-top: 2rem;
+    margin-top: 1rem;
     max-height: 20rem;
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
     overflow-y: auto;
 }
+#cart-items::-webkit-scrollbar{
+    width: 5px;
+}
 
+#cart-items::-webkit-scrollbar-thumb {
+    background: #0a3d62;
+    border-radius: 10px;
+}
 .cart-item {
     display: flex;
     align-items: center;
@@ -102,4 +126,64 @@
 #checkout-btn:hover {
     background: #032137;
     color: #f1c40f;
+}
+
+@media (max-width: 768px) {
+    .cart-modal {
+        padding: 0;
+        align-items: flex-end;
+    }
+    .cart-content {
+        width: 100%;
+        height: 100vh;
+        max-width: 100%;
+        border-radius: 0;
+        padding: 4rem 1.5rem 1.5rem;
+    }
+    .close-cart {
+        top: 2.1rem;
+        right: 2.1rem;
+        width: 45px;
+        height: 45px;
+        background: #f4f4f4;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        line-height: 1;
+    }
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.5rem 0;
+        text-align: left;
+    }
+    .cart-item img {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 0.5rem;
+    }
+    .cart-controls {
+        width: 100%;
+        justify-content: flex-start;
+        margin-top: 10px;
+    }
+    .cart-footer {
+        border-top: 1px solid #eee;
+        padding-top: 1rem;
+        text-align: center;
+    }
+    #checkout-btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .cart-content h2 {
+        font-size: 1.5rem;
+    }
+    .cart-item span {
+        font-size: 1.9rem;
+    }
 }
