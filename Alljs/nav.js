@@ -114,22 +114,36 @@ if (loginFormEl) {
         const email = document.getElementById("loginEmail").value.trim();
         const password = document.getElementById("loginPassword").value.trim();
 
-        if (email === "" || password === "") {
+        if (!email || !password) {
             alert("Please fill all fields");
             return;
         }
 
-        alert("Login successful ✅");
+        let users = JSON.parse(localStorage.getItem("users")) || [];
 
-        // Close modal
+        // Check if user exists
+        const user = users.find(user => user.email === email);
+
+        if (!user) {
+            alert("Account not found ❌ Please register first");
+            return;
+        }
+
+        // Check password
+        if (user.password !== password) {
+            alert("Incorrect password ❌");
+            return;
+        }
+
+        alert("Login successful ✅ Welcome " + user.name);
+
         authModal.classList.remove("show");
-
-        // Reset form
         loginFormEl.reset();
     });
 }
 
 
+// REGISTER
 // REGISTER
 const registerFormEl = document.getElementById("registerForm");
 
@@ -142,21 +156,36 @@ if (registerFormEl) {
         const password = document.getElementById("regPassword").value.trim();
         const confirm = document.getElementById("regConfirm").value.trim();
 
-        if (name === "" || email === "" || password === "" || confirm === "") {
+        if (!name || !email || !password || !confirm) {
             alert("Please fill all fields");
             return;
         }
+
         if (password !== confirm) {
             alert("Passwords do not match ❌");
             return;
         }
+
+        // Check if user already exists
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        const userExists = users.find(user => user.email === email);
+
+        if (userExists) {
+            alert("Account already exists. Please login.");
+            return;
+        }
+
+        // Save user
+        users.push({ name, email, password });
+        localStorage.setItem("users", JSON.stringify(users));
+
         alert("Registration successful 🎉");
+
+        registerFormEl.reset();
 
         // Switch to login
         registerForm.classList.remove("active");
         loginForm.classList.add("active");
-
-        // Reset form
-        registerFormEl.reset();
     });
 }

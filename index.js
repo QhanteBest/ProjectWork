@@ -128,7 +128,7 @@ function initCartUI(){
     }
 }
 
-// ================= CHECKOUT =================
+// ===CHECKOUT===
 function checkoutFunction(){
 
     if(cart.length === 0){
