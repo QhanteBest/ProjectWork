@@ -11,13 +11,12 @@
     color: #0a3d62;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
-
 .product-grid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
-    justify-content: center;
 }
+
 
 .product-card {
     box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.12);
@@ -27,7 +26,7 @@
     color: #0a3d62;
     font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
-    flex: 0 0 calc(25% - 1.5rem);
+    width: 100%;
 }
 
 .product-card img:hover {
@@ -118,11 +117,17 @@
     .product-title {
         font-size: 1.5rem;
     }
+    .products-section {
+        padding: 3rem 1.5rem;
+    }
 }
 
 @media (max-width: 600px){
     .product-grid{
         grid-template-columns: 1fr;
+    }
+    .products-section {
+        padding: 2rem 1rem;
     }
     .product-title {
         font-size: 1.2rem;

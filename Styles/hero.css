@@ -123,6 +123,7 @@
 @media (max-width: 992px) {
     .hero {
         padding: 4rem 6%;
+        margin-bottom: 4rem;
     }
     .hero-container {
         flex-direction: column;
@@ -143,7 +144,9 @@
         animation-delay: 1.5s;
     }
     .hero-buttons {
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
     }
     .hero-buttons.anim {
         animation-delay: 2s;
@@ -153,6 +156,7 @@
 @media (max-width: 600px){
     .hero {
         padding: 3rem 5%;
+        margin-bottom: 7rem;
     }
     .hero-container {
         flex-direction: column;
@@ -177,7 +181,7 @@
     }
     .btn-primary,
     .btn-secondary {
-        width: 50%;
+        width: 70%;
         text-align: center;
     }
 }
