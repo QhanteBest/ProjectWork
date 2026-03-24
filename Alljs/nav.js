@@ -34,6 +34,63 @@ navItems.forEach(link => {
 });
 },100);
 
+
+//SEARCH BOX
+const searchInput = document.getElementById("searchInput");
+
+const productCards = document.querySelectorAll(".product-card");
+const serviceCards = document.querySelectorAll(".services-card");
+const workCards = document.querySelectorAll(".work-card");
+
+searchInput.addEventListener("keyup", function(){
+
+let value = searchInput.value.toLowerCase();
+
+
+// SEARCH PRODUCTS
+productCards.forEach(function(card){
+
+let text = card.textContent.toLowerCase();
+
+if(text.includes(value)){
+card.style.display = "block";
+}else{
+card.style.display = "none";
+}
+
+});
+
+
+// SEARCH SERVICES
+serviceCards.forEach(function(card){
+
+let text = card.textContent.toLowerCase();
+
+if(text.includes(value)){
+card.style.display = "block";
+}else{
+card.style.display = "none";
+}
+
+});
+
+
+// SEARCH WORK SHOWCASE
+workCards.forEach(function(card){
+
+let text = card.textContent.toLowerCase();
+
+if(text.includes(value)){
+card.style.display = "block";
+}else{
+card.style.display = "none";
+}
+
+});
+
+});
+
+
 // RESET MENU STATE ON RESIZE (FIX DESKTOP ISSUE)
 window.addEventListener("resize", () => {
     if (window.innerWidth > 992) {

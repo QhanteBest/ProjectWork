@@ -23,6 +23,19 @@
     transition: opacity 0.3s ease;
 }
 
+.search-box{
+    margin:0 20px;
+}
+
+.search-box input{
+    padding:8px 12px;
+    border:none;
+    border-radius: 20px;
+    outline:none;
+    width:220px;
+    font-size:14px;
+}
+
 .nav-links {
     display: flex;
     list-style: none;
@@ -145,6 +158,19 @@
         padding: 10px;
         font-size: 1.2rem;
     }
+}
+
+@media (max-width:992px){
+
+.search-box{
+    width:100%;
+    padding:10px 20px;
+}
+
+.search-box input{
+    width:100%;
+}
+
 }
 
 /* AUTH MODAL */
