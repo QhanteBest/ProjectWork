@@ -1,110 +1,176 @@
 setTimeout(() => {
-const hamburger = document.querySelector(".hamburger");
-const closeMenu = document.querySelector(".close-menu");
-const navLinks = document.querySelector(".nav-links");
-const logo = document.querySelector(".logo");
-if (!hamburger) return;
+    // --- 1. SELECTIONS ---
+    const hamburger = document.querySelector(".hamburger");
+    const closeMenu = document.querySelector(".close-menu");
+    const navLinks = document.querySelector(".nav-links");
+    const logo = document.querySelector(".logo");
+    const searchBox = document.querySelector('.search-box');
+    const searchIcon = document.getElementById('toggleSearch');
+    const searchInput = document.getElementById('searchInput');
+    const productGrid = document.querySelector('.product-grid');
+    
+    // Elements to hide/show during search
+    const sectionsToHide = [
+        document.getElementById('hero'),
+        document.getElementById('services'),
+        document.getElementById('contact'),
+        document.getElementById('footer')
+    ];
 
-//Opening menu
-hamburger.addEventListener("click", function(){
-    navLinks.classList.add("show");
-    closeMenu.style.display="block";
-    hamburger.style.display="none";
-    logo.classList.add("hide");
-});
+    // Titles and Intro text to hide for a clean search view
+    const extraUIs = document.querySelectorAll('.product-title, .services-intro, .services-section h2, .work-title, .work-intro, .accessories-section h2, .upgrade, .view-all-accessories');
+    const servicesGrid = document.querySelector('.services-grid'); // Hide regular services grid
 
-//Closing menu
-closeMenu.addEventListener("click", function(){
-    navLinks.classList.remove("show");
-    closeMenu.style.display="none";
-    logo.classList.remove("hide");
-    hamburger.style.display = "block";
-});
+    if (!hamburger || !searchInput) return;
 
-// CLOSE MENU WHEN ANY LINK IS CLICKED (MOBILE)
-const navItems = document.querySelectorAll(".nav-links a");
-
-navItems.forEach(link => {
-    link.addEventListener("click", () => {
-        navLinks.classList.remove("show");
-        closeMenu.style.display = "none";
-        hamburger.style.display = "block";
+    // --- 2. HELPER FUNCTION TO RESET VIEW ---
+    function resetLayout() {
         logo.classList.remove("hide");
-    });
-});
-},100);
-
-
-//SEARCH BOX
-const searchInput = document.getElementById("searchInput");
-
-const productCards = document.querySelectorAll(".product-card");
-const serviceCards = document.querySelectorAll(".services-card");
-const workCards = document.querySelectorAll(".work-card");
-
-searchInput.addEventListener("keyup", function(){
-
-let value = searchInput.value.toLowerCase();
-
-
-// SEARCH PRODUCTS
-productCards.forEach(function(card){
-
-let text = card.textContent.toLowerCase();
-
-if(text.includes(value)){
-card.style.display = "block";
-}else{
-card.style.display = "none";
-}
-
-});
-
-
-// SEARCH SERVICES
-serviceCards.forEach(function(card){
-
-let text = card.textContent.toLowerCase();
-
-if(text.includes(value)){
-card.style.display = "block";
-}else{
-card.style.display = "none";
-}
-
-});
-
-
-// SEARCH WORK SHOWCASE
-workCards.forEach(function(card){
-
-let text = card.textContent.toLowerCase();
-
-if(text.includes(value)){
-card.style.display = "block";
-}else{
-card.style.display = "none";
-}
-
-});
-
-});
-
-
-// RESET MENU STATE ON RESIZE (FIX DESKTOP ISSUE)
-window.addEventListener("resize", () => {
-    if (window.innerWidth > 992) {
-        const navLinks = document.querySelector(".nav-links");
-        const hamburger = document.querySelector(".hamburger");
-        const closeMenu = document.querySelector(".close-menu");
-        const logo = document.querySelector(".logo");
-
-        navLinks.classList.remove("show");
-        closeMenu.style.display = "none";
-        hamburger.style.display = "none";
-        logo.classList.remove("hide");
+        if (window.innerWidth <= 992) hamburger.style.display = "block";
+        
+        // Show all main sections
+        sectionsToHide.forEach(section => { if(section) section.style.display = ""; });
+        
+        // Show all titles/intros
+        extraUIs.forEach(el => { if(el) el.style.display = ""; });
+        if(servicesGrid) servicesGrid.style.display = "";
     }
-});
+
+    // --- 3. MOBILE MENU LOGIC ---
+    hamburger.addEventListener("click", function() {
+        navLinks.classList.add("show");
+        closeMenu.style.display = "block";
+        hamburger.style.display = "none";
+        logo.classList.add("hide");
+        searchBox.classList.add("hide"); 
+    });
+
+    closeMenu.addEventListener("click", function() {
+        navLinks.classList.remove("show");
+        closeMenu.style.display = "none";
+        resetLayout();
+        searchBox.classList.remove("hide");
+    });
+
+    // --- 4. SEARCH BOX VISIBILITY ---
+    if (searchIcon) {
+        searchIcon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            searchBox.classList.toggle('active');
+            
+            if (searchBox.classList.contains('active')) {
+                logo.classList.add("hide");
+                hamburger.style.display = "none";
+                searchInput.focus();
+            } else {
+                searchInput.value = ""; 
+                triggerSearch(""); 
+                resetLayout();
+            }
+        });
+    }
+
+    // --- 5. LIVE SEARCH & GLOBAL HIDING ---
+    function triggerSearch(term) {
+        const isSearching = term.length > 0;
+
+        // Hide UI elements if user is typing
+        sectionsToHide.forEach(section => {
+            if(section) section.style.display = isSearching ? "none" : "";
+        });
+        extraUIs.forEach(el => {
+            if(el) el.style.display = isSearching ? "none" : "";
+        });
+        if(servicesGrid) servicesGrid.style.display = isSearching ? "none" : "";
+
+        let visibleItemsCount = 0;
+
+        // Filter 1: Main Products
+        const products = document.querySelectorAll('.product-card');
+        products.forEach(product => {
+            const title = product.querySelector('h3').textContent.toLowerCase();
+            const desc = product.querySelector('p').textContent.toLowerCase();
+            const match = title.includes(term) || desc.includes(term);
+            product.style.display = match ? 'block' : 'none';
+            if(match) visibleItemsCount++;
+        });
+
+        // Filter 2: Accessories
+        const accessories = document.querySelectorAll('.accessory-card');
+        accessories.forEach(acc => {
+            const title = acc.querySelector('h4').textContent.toLowerCase();
+            const match = title.includes(term);
+            acc.style.display = match ? 'block' : 'none';
+            if(match) visibleItemsCount++;
+        });
+
+        // Filter 3: Recent Work (Showcase)
+        const works = document.querySelectorAll('.work-card');
+        works.forEach(work => {
+            const text = work.querySelector('p').textContent.toLowerCase();
+            const match = text.includes(term);
+            work.style.display = match ? 'block' : 'none';
+            if(match) visibleItemsCount++;
+        });
+
+        // Handle "No Results" message
+        let msg = document.querySelector('.no-results-msg');
+        if (visibleItemsCount === 0 && isSearching) {
+            if (!msg && productGrid) {
+                msg = document.createElement('p');
+                msg.className = 'no-results-msg';
+                msg.style.cssText = "grid-column: 1/-1; text-align: center; padding: 40px; color: #333; font-weight: bold; font-size: 1.2rem;"; 
+                msg.textContent = "No products or projects found matching your search.";
+                productGrid.parentNode.insertBefore(msg, productGrid);
+            }
+        } else if (msg) {
+            msg.remove();
+        }
+    }
+
+    searchInput.addEventListener('keyup', (e) => {
+        triggerSearch(e.target.value.toLowerCase());
+    });
+
+    // --- 6. CLICK OUTSIDE TO CLOSE ---
+    document.addEventListener('click', (e) => {
+        if (searchBox && !searchBox.contains(e.target) && searchBox.classList.contains('active')) {
+            searchBox.classList.remove('active');
+            searchInput.value = ""; 
+            triggerSearch(""); 
+            resetLayout();
+        }
+    });
+
+    // --- 7. NAV LINK CLICKS ---
+    const navItems = document.querySelectorAll(".nav-links a");
+    navItems.forEach(link => {
+        link.addEventListener("click", () => {
+            navLinks.classList.remove("show");
+            closeMenu.style.display = "none";
+            resetLayout();
+            searchBox.classList.remove("hide");
+        });
+    });
+
+    // --- 8. WINDOW RESIZE ---
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 992) {
+            navLinks.classList.remove("show");
+            closeMenu.style.display = "none";
+            hamburger.style.display = "none";
+            logo.classList.remove("hide");
+            searchBox.classList.remove("hide");
+            if (!searchBox.classList.contains("active")) resetLayout();
+        } else {
+            if (!navLinks.classList.contains("show") && !searchBox.classList.contains('active')) {
+                hamburger.style.display = "block";
+            }
+        }
+    });
+
+}, 100);
+
 
 
 // ================= AUTH MODAL =================

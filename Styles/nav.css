@@ -23,17 +23,62 @@
     transition: opacity 0.3s ease;
 }
 
-.search-box{
-    margin:0 20px;
+.search-box {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-right: 15px; /* Adds a little gap before the cart/hamburger */
 }
 
-.search-box input{
-    padding:8px 12px;
-    border:none;
+.search-icon {
+    width: 20px;
+    height: 20px;
+    left: 10px;
+    font-weight: 700;
+    position: absolute;
+    cursor: pointer;
+    color: #0a3d62; /* Changed to white to match your navbar */
+    z-index: 10;
+}
+
+#searchInput {
+    border: 1px solid #ccc;
     border-radius: 20px;
-    outline:none;
-    width:220px;
-    font-size:14px;
+    padding: 6px 15px 6px 40px;
+    width: 0;
+    opacity: 0; 
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.search-box.active #searchInput {
+    width: 200px;
+    opacity: 1;
+}
+
+/* Smooth fade for search results */
+.product-card, .services-card, .work-card {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    animation: fadeIn 0.4s ease;
+}
+
+/* This handles the icon color when the search bar is OPEN */
+.search-box.active .search-icon {
+    color: #0a3d62 !important; /* Dark blue when searching */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Optional: Style for when no results are found */
+.no-results-msg {
+    text-align: center;
+    grid-column: 1 / -1;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
 }
 
 .nav-links {
@@ -145,9 +190,12 @@
         padding-left: 5px;
         font-family: 'Times New Roman', Times, serif;
     }
-    .logo.hide {
+    .logo.hide,
+    .search-box.hide{
         opacity: 0;
         pointer-events: none;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
     }
     .nav-links li {
         width: 100%;
@@ -160,18 +208,16 @@
     }
 }
 
-@media (max-width:992px){
-
-.search-box{
-    width:100%;
-    padding:10px 20px;
+/* On Desktop (992px and up), ignore the hide class */
+@media (min-width: 993px) {
+    .logo.hide, 
+    .search-box.hide {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        visibility: visible !important;
+    }
 }
 
-.search-box input{
-    width:100%;
-}
-
-}
 
 /* AUTH MODAL */
 .auth-modal {
@@ -275,3 +321,53 @@
         padding: 1.5rem;
     }
 }
+
+/* --- Mobile Fix for Search --- */
+@media (max-width: 992px) { /* Match your hamburger breakpoint */
+    #searchInput {
+        padding: 5px 12px 5px 35px;
+        border: none;
+        visibility: hidden; /* Prevents clicking it while invisible */
+    }
+
+    /* This makes the bar slide OUT to the LEFT so it doesn't hit the hamburger */
+    .search-box.active #searchInput {
+        width: 160px; /* Reduced length for mobile */
+        opacity: 1;
+        visibility: visible;
+        padding: 5px 10px 5px 35px;
+        border: 1px solid #ccc;
+        background: white;
+        color: #333;
+        transform: translateX(0); /* Keeps it in place */
+    }
+    
+    /* Ensure the hamburger and cart stay visible */
+    .navbar {
+        justify-content: space-between;
+    }
+    .search-icon {
+        color: #ffffff;
+        width: 18px;
+        height: 18px;
+        left: 8px !important;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
